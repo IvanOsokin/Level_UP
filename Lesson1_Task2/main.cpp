@@ -15,23 +15,23 @@
 
 int main()
 {
-    float a = 5., c = 5., d;
+    double a = 5., c = 5., d;
     int b;
 
     printf("Enter a value of b = ");
     scanf("%d", &b);
     printf("Enter a value of d = ");
-    scanf("%f", &d);
+    scanf("%lf", &d);
 
     printf("\na = %.0f\tb = %d\tc = %.0f\td = %.0f\n\n", a , b, c, d);
 
     a = a + b - 2;
     printf("\na = a + b - 2 = %.0f\n", a);
 
-    c++;
+    c += 1;
     printf("c = c + 1 = %.0f\n", c);
 
-    d = c - a + d;
+    d += c - a;
     printf("d = c - a + d = %.0f\n", d);
 
     a *= c;
@@ -46,10 +46,10 @@ int main()
     c /= 2;
     printf("c = c / 2 = %.3f\n", c);
 
-    b--;
+    b -= 1;
     printf("b = b - 1 = %d\n", b);
 
-    d = d * (c + b + a);
+    d *= c + b + a;
     printf("d = d * (c + b + a) = %.3f\n", d);
 
     return 0;
