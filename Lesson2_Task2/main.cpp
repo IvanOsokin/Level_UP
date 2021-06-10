@@ -11,74 +11,54 @@
 
 int main()
 {
-    double radius = 0;
-    double squareSide = 0;
-    double triangleSide = 0;
-    bool isNumber = false;
-    double circleSquare = 0;
-    double squareSquare = 0;
-    double triangleSquare = 0;
-    double halfPerimeter = 0;
-    double maxSquare = 0;
-
-    while(true)
+    double radius = -1;
+    do
     {
         printf("Enter a value of the radius: ");
-        isNumber = scanf("%lf", &radius);
-        if (isNumber != 0 && radius >= 0)
-        {
-            break;
-        }
-        else
+        if(const bool isValidRead = scanf("%lf", &radius) == 0)
         {
             printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
-            while(getchar() != '\n');
+            fflush(stdin);
         }
-    }
+    }while(radius < 0);
 
-    while(true)
+    double squareSide = -1;
+    do
     {
-        printf("Enter a value of the side of square: ");
-        isNumber = scanf("%lf", &squareSide);
-        if (isNumber != 0 && radius >= 0)
-        {
-            break;
-        }
-        else
+        printf("Enter a value of the side of the square: ");
+        if(const bool isValidRead = scanf("%lf", &squareSide) == 0)
         {
             printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
-            while(getchar() != '\n');
+            fflush(stdin);
         }
-    }
+    }while(squareSide < 0);
 
-    while(true)
+    double triangleSide = -1;
+    do
     {
-        printf("Enter a value of the side of the equilateral triangle: ");
-        isNumber = scanf("%lf", &triangleSide);
-        if (isNumber != 0 && radius >= 0)
-        {
-            break;
-        }
-        else
+        printf("Enter a value of the side of the triangle: ");
+        if(const bool isValidRead = scanf("%lf", &triangleSide) == 0)
         {
             printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
-            while(getchar() != '\n');
+            fflush(stdin);
         }
-    }
+    }while(triangleSide < 0);
 
+    double circleSquare = 0;
     circleSquare = M_PI * pow(radius, 2);
+    printf("\nThe area of the circle = %f\n", circleSquare);
+
+    double squareSquare = 0;
     squareSquare = squareSide * squareSide;
+    printf("The area of the square = %f\n", squareSquare);
+
+    double halfPerimeter = 0;
     halfPerimeter = 1.5 * triangleSide;
+    double triangleSquare = 0;
     triangleSquare = sqrt(halfPerimeter * pow((halfPerimeter - triangleSide), 3));
+    printf("The area of the triangle = %f\n", triangleSquare);
 
-    printf("circle = %lf\n", circleSquare);
-    printf("square = %lf\n", squareSquare);
-    printf("triangle = %lf\n", triangleSquare);
-
-    maxSquare = circleSquare > squareSquare ? circleSquare : squareSquare;
-    maxSquare = maxSquare > triangleSquare ? maxSquare : triangleSquare;
-
-    printf("The greatest square is %lf", maxSquare);
+    printf("\nThe greatest square is %f", fmax(fmax(circleSquare, squareSquare), triangleSquare));
 
     return 0;
 }
