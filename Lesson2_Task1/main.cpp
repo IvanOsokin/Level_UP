@@ -9,31 +9,23 @@
 
 int main()
 {
-    double x = 1;
-    double y;
-    int isNum = 0;
+    double x;
 
-    while(true)
+    do
     {
         printf("Enter the value of x (x must be greater than 0): ");
 
-        isNum = scanf("%lf", &x);
-
-        if (x > 0 && isNum == 1)
-        {
-            break;
-        }
-        else
+        if(const bool isValidRead = scanf("%lf", &x) == 0 || x <= 0)
         {
             printf("The value is not allowed!!!\nTry one more time!!!\n\n");
-            while (getchar() != '\n');
+            fflush(stdin);
         }
+    }while(x <= 0);
 
-    }
-
+    double y;
     y = ((2 * cos(x - M_PI / 6) + sqrt(2)) * exp(3 * x)) / (0.5 * log(x) + pow(sin(pow(x, 2)), 2));
 
-    printf("\ny = %lf", y);
+    printf("\ny = %f", y);
 
     return 0;
 }
