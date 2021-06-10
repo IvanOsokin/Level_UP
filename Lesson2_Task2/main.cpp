@@ -15,7 +15,7 @@ int main()
     do
     {
         printf("Enter a value of the radius: ");
-        if(const bool isValidRead = scanf("%lf", &radius) == 0)
+        if(scanf("%lf", &radius) == 0 || radius < 0)
         {
             printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
             fflush(stdin);
@@ -26,7 +26,7 @@ int main()
     do
     {
         printf("Enter a value of the side of the square: ");
-        if(const bool isValidRead = scanf("%lf", &squareSide) == 0)
+        if(scanf("%lf", &squareSide) == 0 || squareSide < 0)
         {
             printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
             fflush(stdin);
@@ -37,7 +37,7 @@ int main()
     do
     {
         printf("Enter a value of the side of the triangle: ");
-        if(const bool isValidRead = scanf("%lf", &triangleSide) == 0)
+        if(scanf("%lf", &triangleSide) == 0 || triangleSide < 0)
         {
             printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
             fflush(stdin);
