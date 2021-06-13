@@ -6,44 +6,16 @@
  *
  */
 
-
 #include <stdio.h>
 #include <math.h>
 
+int getNumber(void);
+
 int main()
 {
-    int firstNumber;
-    do
-    {
-        printf("Enter the first number (must be greater than 0): ");
-        if(scanf("%d", &firstNumber) == 0 || firstNumber < 1)
-        {
-            printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
-            fflush(stdin);
-        }
-    }while(firstNumber < 1);
-
-    int secondNumber;
-    do
-    {
-        printf("Enter the second (must be greater than 0): ");
-        if(scanf("%d", &secondNumber) == 0 || secondNumber < 1)
-        {
-            printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
-            fflush(stdin);
-        }
-    }while(secondNumber < 1);
-
-    int thirdNumber;
-    do
-    {
-        printf("Enter the third (must be greater than 0): ");
-        if(scanf("%d", &thirdNumber) == 0 || thirdNumber < 1)
-        {
-            printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
-            fflush(stdin);
-        }
-    }while(thirdNumber < 1);
+    int firstNumber = getNumber();
+    int secondNumber = getNumber();
+    int thirdNumber = getNumber();
 
     int LCD = 1;        //Наименьший общий делитель
 
@@ -56,7 +28,23 @@ int main()
         }
     }
 
-    printf("\nThe least common divisor is %d", LCD);
+    printf("\nThe least common divisor of three numbers is %d", LCD);
 
     return 0;
+}
+
+int getNumber(void)
+{
+    int tempNumber;
+    do
+    {
+        printf("Enter a number (must be greater than 0): ");
+        if(scanf("%d", &tempNumber) == 0 || tempNumber < 1)
+        {
+            printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
+            fflush(stdin);
+        }
+    }while(tempNumber < 1);
+
+    return tempNumber;
 }
