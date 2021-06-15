@@ -18,8 +18,8 @@ int main()
     int thirdNumber = getNumber();
 
     int LCD = 1;        //Наименьший общий делитель
-
-    for(int i = 2; i <= (fmin(fmin(firstNumber, secondNumber), thirdNumber)); ++i)
+    int minInt = (fmin(fmin(firstNumber, secondNumber), thirdNumber));
+    for(int i = 2; i <= minInt; ++i)
     {
         if(firstNumber % i == 0 && secondNumber % i == 0 && thirdNumber % i == 0)
         {
@@ -28,7 +28,7 @@ int main()
         }
     }
 
-    printf("\nThe least common divisor of three numbers is %d", LCD);
+    printf("\nThe least common divisor of the three numbers is %d", LCD);
 
     return 0;
 }
