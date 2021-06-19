@@ -13,10 +13,10 @@ int main()
 {
     //Считать десятичное число с клавиатуры
     int decimalNum;
-    int isValidRead = 0;
+    bool isValidRead = false;
     while(isValidRead == 0)
     {
-        printf("Enter any integer number: ");
+        printf("Enter any integer: ");
         if(!(isValidRead = scanf("%d", &decimalNum)))
         {
             printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
