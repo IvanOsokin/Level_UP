@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <math.h>
 
-int getNumber(void);
+int getNumber();
 
 int main()
 {
@@ -33,7 +33,7 @@ int main()
     return 0;
 }
 
-int getNumber(void)
+int getNumber()
 {
     int tempNumber;
     do
