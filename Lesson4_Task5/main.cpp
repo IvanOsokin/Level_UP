@@ -8,15 +8,15 @@ int main()
     constexpr int size = 255;
 
     char str[size];
-    char* ptrStr = str;
 
     printf("Enter a string: ");
     gets(str);
 
-    char* temp = ptrStr;
+    char* ptrStr = str;
+    char* temp = str;
     int cnt = 0;
 
-    while(*temp != '\0')
+    while(*temp)
     {
         if(*temp == ' ')
         {
