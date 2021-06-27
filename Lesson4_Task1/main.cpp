@@ -29,7 +29,7 @@ int main()
     }
 
     bool isNegative = false;
-    for(int i = size - 1; i >= 0; --i)
+    for(int i = size - 1; i >= 0 && !isNegative; --i)
     {
         if(array[i] < 0)
         {
@@ -37,7 +37,6 @@ int main()
             array[i] = maxElem;
             array[index] = temp;
             isNegative = true;
-            break;
         }
     }
 
