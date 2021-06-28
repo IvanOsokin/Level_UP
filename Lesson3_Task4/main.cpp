@@ -1,53 +1,37 @@
-/*
- *
- * Перевести число из десятичной системы счисления в двоичную.
- *
- */
-
+//Перевести число из десятичной системы счисления в двоичную.
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include <limits.h>
 
 int main()
 {
-    //Считать десятичное число с клавиатуры
-    int decimalNum;
+    int signedDecimalNum;
     bool isValidRead = false;
-    while(isValidRead == 0)
+    while(!isValidRead)
     {
-        printf("Enter any integer: ");
-        if(!(isValidRead = scanf("%d", &decimalNum)))
+        printf("Enter any positive integer: ");
+        isValidRead = scanf("%d", &signedDecimalNum);
+        if(!isValidRead || signedDecimalNum < 0)
         {
             printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
             fflush(stdin);
+            isValidRead = false;
         }
     }
 
-    //Инвертированное двоичное число (начинается с 1, чтобы не потерять значащие нули в начале)
-    int tempBinaryNum = 1;
-    int countDigits = 0;
-    int tempDecimalNum = abs(decimalNum);
-    do
-    {
-        ++countDigits;
-        tempBinaryNum = tempBinaryNum * 10 + tempDecimalNum % 2;
-    }while(tempDecimalNum /= 2);
+    unsigned int unsignedDecimalNum = signedDecimalNum;
 
-    //Двоичная форма записи исходного числа
-    int binaryNum = tempBinaryNum  == 10 ? 0 : 1;
-    for (int i = 1; i < countDigits; ++i)
+    for(int i = sizeof(unsignedDecimalNum) * CHAR_BIT - 1; i >= 0; --i)
     {
-        tempBinaryNum /= 10;
-        binaryNum *= 10;
-        binaryNum += tempBinaryNum % 10;
+        if(unsignedDecimalNum & (1 << i))
+        {
+            printf("1");
+        }
+        else
+        {
+            printf("0");
+        }
     }
-    if(decimalNum < 0)
-    {
-       binaryNum *= (-1);
-    }
-
-    printf("\n%d - from decimal to binary is %d", decimalNum, binaryNum);
 
     return 0;
 }
