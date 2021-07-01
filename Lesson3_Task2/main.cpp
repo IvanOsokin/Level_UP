@@ -7,9 +7,7 @@
  */
 
 #include <stdio.h>
-#include <math.h>
-
-int getNumber();
+#include "Least_Common_Divisor_Search.h"
 
 int main()
 {
@@ -17,34 +15,8 @@ int main()
     int secondNumber = getNumber();
     int thirdNumber = getNumber();
 
-    int LCD = 1;        //Наименьший общий делитель
-    int minInt = (fmin(fmin(firstNumber, secondNumber), thirdNumber));
-    for(int i = 2; i <= minInt; ++i)
-    {
-        if(firstNumber % i == 0 && secondNumber % i == 0 && thirdNumber % i == 0)
-        {
-            LCD = i;
-            break;
-        }
-    }
-
+    int LCD = leastCommonDivisorSearch(firstNumber, secondNumber, thirdNumber);
     printf("\nThe least common divisor of the three numbers is %d", LCD);
 
     return 0;
-}
-
-int getNumber()
-{
-    int tempNumber;
-    do
-    {
-        printf("Enter a number (must be greater than 0): ");
-        if(scanf("%d", &tempNumber) == 0 || tempNumber < 1)
-        {
-            printf("The enter is incorrect!!!\nTry to enter again!!!\n\n");
-            fflush(stdin);
-        }
-    }while(tempNumber < 1);
-
-    return tempNumber;
 }
