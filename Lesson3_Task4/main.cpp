@@ -8,7 +8,10 @@ int main()
 {
     int signedDecimalNum = getInteger();
     printf("Entered number in binary is ");
-    decimalToBinary(signedDecimalNum);
+    char* pBinaryNum = decimalToBinary(signedDecimalNum);
+    printf("%s", pBinaryNum);
+    delete [] pBinaryNum;
+    pBinaryNum = nullptr;
 
     return 0;
 }
