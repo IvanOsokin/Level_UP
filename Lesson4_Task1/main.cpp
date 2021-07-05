@@ -7,14 +7,29 @@
 int main()
 {
     constexpr int size = 40;
-    int array[size];
-    initializingArray(array, size);
+    int* pArray = new int[size];
+    initializingArray(pArray, size);
+    int* tempPtr = replacementLastNegAndMax(pArray, size);
+    if(tempPtr != pArray)
+    {
+        printf("A new array:\n");
+        for(int i = 0; i < size; ++i)
+        {
+            printf("%d ", *(pArray + i));
+        }
+        printf("\n");
+    }
+    else
+    {
+        printf("There are no negative elements!");
+    }
 
-    int maxElem = INT_MIN;
-    int index = 0;
-    findMaxElem(array, size, &maxElem, &index);
-
-    replacementLastNegAndMax(array, size, &maxElem, &index);
-
+    delete[] tempPtr;
+    tempPtr = nullptr;
+    if(pArray)
+    {
+        delete[] pArray;
+        pArray = nullptr;
+    }
     return 0;
 }

@@ -2,54 +2,55 @@
 #include <stdlib.h>
 #include "Arrays.h"
 
-void initializingArray(int array[], int size)
+void initializingArray(int* pArray, int size)
 {
     printf("An initial array:\n");
     for(int i = 0; i < size; ++i)
     {
-        array[i] = rand() % 201 - 100;
-        printf("%d ", array[i]);
+        *(pArray + i) = rand() % 201 - 100;
+        printf("%d ", *(pArray + i));
     }
     printf("\n");
 }
 
-void findMaxElem(int array[], int size, int* maxElem, int* index)
+int* replacementLastNegAndMax(int* pArray, int size)
 {
+    int maxElem = INT_MIN;
+    int index = 0;
     for(int i = 0; i < size; ++i)
     {
-        if(array[i] > *maxElem)
+        if(*(pArray + i) > maxElem)
         {
-            *maxElem = array[i];
-            *index = i;
+            maxElem = *(pArray + i);
+            index = i;
         }
     }
-}
 
-void replacementLastNegAndMax(int array[], int size, int* maxElem, int* index)
-{
     bool isNegativeExisted = false;
     for(int i = size - 1; i >= 0 && !isNegativeExisted; --i)
     {
-        if(array[i] < 0)
+        if(*(pArray + i) < 0)
         {
-            int temp = array[i];
-            array[i] = *maxElem;
-            array[*index] = temp;
+            int temp = *(pArray + i);
+            *(pArray + i) = maxElem;
+            *(pArray + index) = temp;
             isNegativeExisted = true;
         }
     }
 
     if(isNegativeExisted)
     {
-        printf("A new array:\n");
+        int* newArray = new int[size];
         for(int i = 0; i < size; ++i)
         {
-            printf("%d ", array[i]);
+            *(newArray + i) = *(pArray + i);
         }
-        printf("\n");
+        return newArray;
     }
     else
     {
-        printf("There are no negative elements!");
+        return pArray;
     }
+
+    return pArray;
 }
