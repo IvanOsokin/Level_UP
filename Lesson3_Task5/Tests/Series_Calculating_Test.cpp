@@ -23,15 +23,16 @@ TEST(FactorialCalculatingTestCase, Test_4)
 
 TEST(SeriesCalculatingTestCase, Test_1)
 {
-    EXPECT_EQ(seriesCalculating(0.1), 0.100167);
+    EXPECT_DOUBLE_EQ(seriesCalculating(0.1), 0.100167);
 }
 
 TEST(SeriesCalculatingTestCase, Test_2)
 {
-    EXPECT_EQ(seriesCalculating(0.15), 0.150562);
+    EXPECT_DOUBLE_EQ(seriesCalculating(0.15), 0.150562);
 }
 
 TEST(SeriesCalculatingTestCase, Test_3)
 {
-    EXPECT_EQ(seriesCalculating(0.2), 0.201333);
+    EXPECT_DOUBLE_EQ(seriesCalculating(0.2), 0.201333);
 }
+
