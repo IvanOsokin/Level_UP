@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <math.h>
 #include "Arrays.h"
 
 void initializingArray(int array[], int size)
