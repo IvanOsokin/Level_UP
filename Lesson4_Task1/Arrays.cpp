@@ -51,6 +51,4 @@ int* replacementLastNegAndMax(int* pArray, int size)
     {
         return pArray;
     }
-
-    return pArray;
 }
