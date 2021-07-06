@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "Arrays.h"
 
 int main()
 {
@@ -10,43 +11,25 @@ int main()
 
     printf("Array A:\n");
     int arrayA[sizeA];
-    for(int i = 0; i < sizeA; ++i)
-    {
-        arrayA[i] = rand() % 31;
-        printf("%d ", arrayA[i]);
-    }
+    initializingArray(arrayA, sizeA);
+    printArray(arrayA, sizeA);
+
     printf("\n\nArray B:\n");
     int arrayB[sizeB];
-    for(int i = 0; i < sizeB; ++i)
-    {
-        arrayB[i] = rand() % 31;
-        printf("%d ", arrayB[i]);
-    }
+    initializingArray(arrayB, sizeB);
+    printArray(arrayB, sizeB);
 
-    int arrayIndex[sizeA];
-    int k = 0;
-    bool isUnique;
-    for(int i = 0; i < sizeA; ++i)
-    {
-        isUnique = true;
-        for(int j = 0; j < sizeB; ++j)
-        {
-            if(arrayA[i] == arrayB[j])
-            {
-                isUnique = false;
-                break;
-            }
-        }
-        if(isUnique)
-        {
-            arrayIndex[k++] = i;
-        }
-    }
+    int cntUnique = -1;
+    int* pUniqueElem = uniqueInArrayA(arrayA, arrayB, sizeA, sizeB, &cntUnique);
 
     printf("\n\nThe array of indexes of unique elements:\n");
-    for(int i = 0; i < k; ++i)
+    for(int i = 0; i <= cntUnique; ++i)
     {
-        printf("%d ", arrayIndex[i]);
+        printf("%d ", *(pUniqueElem + i));
     }
+
+    delete[] pUniqueElem;
+    pUniqueElem = nullptr;
+
     return 0;
 }
