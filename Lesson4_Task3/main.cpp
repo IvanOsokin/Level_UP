@@ -2,44 +2,39 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "Matrix.h"
 
 int main()
 {
     constexpr int size = 7;
 
-    printf("An initial matrix:\n");
-    int matr[size][size];
+    int** matrix = new int*[size];
+    int** pMatrix = matrix;
     for(int i = 0; i < size; ++i)
     {
-        for(int j = 0; j < size; ++j)
-        {
-            matr[i][j] = rand() % 101;
-            printf("%3d ", matr[i][j]);
-        }
-        printf("\n");
+        *pMatrix = new int[size];
+        ++pMatrix;
     }
+    printf("An initial matrix:\n");
+
+    initializingMatrix(matrix, size);
+    printMatrix(matrix, size);
 
     printf("\nEnter a number for replacement: ");
-    int k;
-    scanf("%d", &k);
-
-    int temp;
-    for(int i = 0; i < size; ++i)
-    {
-        temp = matr[i][k];
-        matr[i][k] = matr[k][i];
-        matr[k][i] = temp;
-    }
+    int value;
+    scanf("%d", &value);
 
     printf("\nA new matrix:\n");
+    pMatrix = replaceRowAndColumn(matrix, size, value);
+    printMatrix(pMatrix, size);
+
     for(int i = 0; i < size; ++i)
     {
-        for(int j = 0; j < size; ++j)
-        {
-            printf("%3d ", matr[i][j]);
-        }
-        printf("\n");
+        delete[] *pMatrix;
+        *pMatrix = nullptr;
+        ++pMatrix;
     }
+    matrix = nullptr;
 
     return 0;
 }
