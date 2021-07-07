@@ -8,7 +8,7 @@ TEST(ReplacementRowColTestCase, Test_1)
     int initArray[size][size] = {{0, 0, 0, 0},
                                  {1, 1, 1, 1},
                                  {2, 2, 2, 2},
-                                 {3, 3, 3, 3}};\
+                                 {3, 3, 3, 3}};
     int** pInitArray = new int*[size];
     for(int i = 0; i < size; ++i)
     {
