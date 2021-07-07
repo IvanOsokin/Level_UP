@@ -36,9 +36,16 @@ TEST(ReplacementRowColTestCase, Test_1)
     constexpr int value = 0;
 
     int** pGottenArray = replaceRowAndColumn(pInitArray, size, value);
-
-    EXPECT_EQ(memcmp(pGottenArray, pResultArray, sizeof(initArray)), 0);
-
+    int check;
+    for(int i = 0; i < size; ++i)
+    {
+        check = memcmp(*(pGottenArray + i), *(pResultArray + i), sizeof(int) * size);
+        if(check)
+        {
+            break;
+        }
+    }
+    EXPECT_EQ(check, 0);
     for(int i = 0; i < size; ++i)
     {
         delete[] *(pGottenArray + i);
