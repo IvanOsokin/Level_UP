@@ -13,10 +13,7 @@ TEST(ReplacementRowColTestCase, Test_1)
     for(int i = 0; i < size; ++i)
     {
         *(pInitArray + i) = new int[size];
-        for(int j = 0; j < size; ++j)
-        {
-            *(*(pInitArray + i) + j) = initArray[i][j];
-        }
+        *(pInitArray + i) = &(initArray[i][0]);
     }
 
     int resultArray[size][size] = {{0, 1, 2, 3},
@@ -27,10 +24,7 @@ TEST(ReplacementRowColTestCase, Test_1)
     for(int i = 0; i < size; ++i)
     {
         *(pResultArray + i) = new int[size];
-        for(int j = 0; j < size; ++j)
-        {
-            *(*(pResultArray + i) + j) = resultArray[i][j];
-        }
+        *(pResultArray + i) = &(resultArray[i][0]);
     }
 
     constexpr int value = 0;
@@ -48,15 +42,11 @@ TEST(ReplacementRowColTestCase, Test_1)
     EXPECT_EQ(check, 0);
     for(int i = 0; i < size; ++i)
     {
-        delete[] *(pGottenArray + i);
         *(pGottenArray + i) = nullptr;
-        delete[] *(pResultArray + i);
         *(pResultArray + i) = nullptr;
         *(pInitArray + i) = nullptr;
     }
-    delete[] pGottenArray;
     pGottenArray = nullptr;
-    delete[] pResultArray;
     pResultArray = nullptr;
     pInitArray = nullptr;
 }
