@@ -40,10 +40,12 @@ void displayTableRank(const Car* player)
         delete[] tmpUserName;
         curs_set(0);
         printTable(scores, &tableSize);
+        getch();
     }
     else
     {
         addNewRecord(&scores, &tableSize, player);
+        getch();
     }
     closeTheGame(fPtrScore, scores, &tableSize);
 }

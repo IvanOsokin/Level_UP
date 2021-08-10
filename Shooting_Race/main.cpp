@@ -57,12 +57,14 @@ int main(int argc, char* argv[])
 
     //Show start menu
     displayTitle();
+    displayControl();
+    displayScore(10, divisor / 2 + trackWidth + 13, &player);
     refresh();
     bool isRaceRun = isRaceLaunched();
     clear();
 
     int gVelocity = 0;
-    Speed spd = FAST_SPD;
+    Speed spd = MEDIUM_SPD;
     Difficulty dfct = EASY_DFCT;
     int callNxtObj = 0;
     int counter = 0;
@@ -78,7 +80,7 @@ int main(int argc, char* argv[])
             if(counter == callNxtObj)
             {
                 createObstacleOrVehicle(pathName, obstVehic, dfct);
-                callNxtObj += rand() % 50 + 30;
+                callNxtObj += rand() % 50 + 20;
             }
             if(!bullets.empty())
             {
@@ -92,10 +94,12 @@ int main(int argc, char* argv[])
             movePlayerCar(&player, spd);
             putPlayerCarOnTrack(&player, ptrTrack);
             showTrack(ptrTrack);
+            displayControl();
+            ++player.score;
+            displayScore(10, divisor / 2 + trackWidth + 6, &player);
             refresh();
             gVelocity += spd;
             ++counter;
-            ++player.score;
             Sleep(90 / spd);
         }while((GetKeyState(VK_ESCAPE) >= 0) && !(isGameOver = isCarCrashed(obstVehic, &player)));
     }

@@ -23,6 +23,8 @@ constexpr int numberOfHit = 1;
 constexpr int maxAmountOfScores = 10;
 constexpr int startPosInTable = 7;
 
+constexpr int controlDescriptionItem = 6;
+
 enum Speed
 {
     SLOW_SPD = 1,

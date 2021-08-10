@@ -2,57 +2,56 @@
 #include <math.h>
 #include "Obstacles_Vehicles.h"
 
-void createObstacleOrVehicle(const char* pathName, std::vector<ObstVehic>& _obstVehic, const Difficulty dfct)
+void createObstacleOrVehicle(const char* pathName, std::vector<ObstVehic>& obstVehic, const Difficulty dfct)
 {
-    //int currentIndex = _obstVehic.capacity();
-    _obstVehic.emplace_back(createObstVehic(pathName, dfct));
-
-
+    obstVehic.emplace_back(createObstVehic(pathName, dfct));
     /*
     //Set a unit to a suitable place onto the track
-    int currentIndex = _obstVehic.capacity() - 1;
+    int currentIndex = obstVehic.size() - 1;
     bool isTrackBorderReached = false;
     int min = -1;
     if(currentIndex >= 1)
     {
-        int offsetDir = -1;
-        do
+        for(int i = obstVehic.size() - 2; i >= 0; --i)
         {
-            offsetDir = offsetDirection(_obstVehic[currentIndex],
-                                        _obstVehic[currentIndex - 1],
-                                        min,
-                                        isTrackBorderReached);                //offDir = 1 - shift left
-            if(offsetDir != 0)                                                //offDir = 2 - shift up
-            {                                                                 //offDir = 3 - shift right
-                switch (offsetDir)
-                {
-                    case 1:
-                        _obstVehic[currentIndex].initPosX -= min;
-                        if(_obstVehic[currentIndex].initPosX <= 0)
-                        {
-                            _obstVehic[currentIndex].initPosX = 1;
-                            isTrackBorderReached = true;
-                        }
-                        setFreeSpace(_obstVehic[currentIndex], dfct);
-                        break;
-                    case 2:
-                        _obstVehic[currentIndex].initPosY -= min;
-                        setFreeSpace(_obstVehic[currentIndex], dfct);
-                        break;
-                    case 3:
-                        _obstVehic[currentIndex].initPosX += min;
-                        if(_obstVehic[currentIndex].initPosX >= trackWidth - _obstVehic[currentIndex].objWidth)
-                        {
-                            _obstVehic[currentIndex].initPosX = trackWidth - _obstVehic[currentIndex].objWidth - 1;
-                            isTrackBorderReached = true;
-                        }
-                        setFreeSpace(_obstVehic[currentIndex], dfct);
-                        break;
+            int offsetDir = -1;
+            do
+            {
+                offsetDir = offsetDirection(obstVehic[currentIndex],
+                                            obstVehic[i],
+                                            min,
+                                            isTrackBorderReached);                //offDir = 1 - shift left
+                if(offsetDir != 0)                                                //offDir = 2 - shift up
+                {                                                                 //offDir = 3 - shift right
+                    switch (offsetDir)
+                    {
+                        case 1:
+                            obstVehic[currentIndex].initPosX -= min;
+                            if(obstVehic[currentIndex].initPosX <= 0)
+                            {
+                                obstVehic[currentIndex].initPosX = 1;
+                                isTrackBorderReached = true;
+                            }
+                            setFreeSpace(obstVehic[currentIndex], dfct);
+                            break;
+                        case 2:
+                            obstVehic[currentIndex].initPosY -= min;
+                            setFreeSpace(obstVehic[currentIndex], dfct);
+                            break;
+                        case 3:
+                            obstVehic[currentIndex].initPosX += min;
+                            if(obstVehic[currentIndex].initPosX >= trackWidth - obstVehic[currentIndex].objWidth)
+                            {
+                                obstVehic[currentIndex].initPosX = trackWidth - obstVehic[currentIndex].objWidth - 1;
+                                isTrackBorderReached = true;
+                            }
+                            setFreeSpace(obstVehic[currentIndex], dfct);
+                            break;
+                    }
                 }
-            }
-        }while(offsetDir != 0);
-    }
-    */
+            }while(offsetDir != 0);
+        }
+    }*/
 }
 
 ObstVehic createObstVehic(const char* pathName, const Difficulty dfct)
@@ -146,71 +145,71 @@ ObstVehic createObstVehic(const char* pathName, const Difficulty dfct)
     return _tmpVehic;
 }
 
-void setFreeSpace(ObstVehic& _obstVehic, Difficulty dfct)
+void setFreeSpace(ObstVehic& obstVehic, Difficulty dfct)
 {
     int tmpDfct = baseDistBtwObstacles - dfct;
-    _obstVehic.freeSpaceL = _obstVehic.initPosX - carWidth / 2 - tmpDfct;
-    _obstVehic.freeSpaceT = _obstVehic.initPosY - carHeight / 2 - tmpDfct;
-    _obstVehic.freeSpaceR = _obstVehic.initPosX + _obstVehic.objWidth + carWidth / 2 + tmpDfct;
-    _obstVehic.freeSpaceB = _obstVehic.initPosY + _obstVehic.objHeight + carHeight / 2 + tmpDfct;
+    obstVehic.freeSpaceL = obstVehic.initPosX - carWidth / 2 - tmpDfct;
+    obstVehic.freeSpaceT = obstVehic.initPosY - carHeight / 2 - tmpDfct;
+    obstVehic.freeSpaceR = obstVehic.initPosX + obstVehic.objWidth + carWidth / 2 + tmpDfct;
+    obstVehic.freeSpaceB = obstVehic.initPosY + obstVehic.objHeight + carHeight / 2 + tmpDfct;
 }
 
-void removeObstVehicObj(std::vector<ObstVehic>& _obstVehic, int index)
+void removeObstVehicObj(std::vector<ObstVehic>& obstVehic, int index)
 {
     //Free allocated memory for the object
-    if(_obstVehic[index].objectView == nullptr)
+    if(obstVehic[index].objectView == nullptr)
     {
         return;
     }
-    for(int i = 0; i < _obstVehic[0].objHeight; ++i)
+    for(int i = 0; i < obstVehic[0].objHeight; ++i)
     {
-        delete[] *(_obstVehic[0].objectView + i);
+        delete[] *(obstVehic[0].objectView + i);
     }
-    delete[] _obstVehic[0].objectView;
+    delete[] obstVehic[0].objectView;
 
     //Remove the object
-    std::vector<ObstVehic>::iterator iter = _obstVehic.begin() + index;
-    _obstVehic.erase(iter);
+    std::vector<ObstVehic>::iterator iter = obstVehic.begin() + index;
+    obstVehic.erase(iter);
 }
 
-void moveObstVehic(std::vector<ObstVehic>& _obstVehic, chtype** track, const Speed spd, const Difficulty dfct)
+void moveObstVehic(std::vector<ObstVehic>& obstVehic, chtype** track, const Speed spd, const Difficulty dfct)
 {
-    for(unsigned int k = 0; k < _obstVehic.size(); ++k)
+    for(unsigned int k = 0; k < obstVehic.size(); ++k)
     {
-        _obstVehic[k].initPosY += spd;
-        setFreeSpace(_obstVehic[k], dfct);
-        if(_obstVehic[k].initPosY > trackHeight)
+        obstVehic[k].initPosY += spd;
+        setFreeSpace(obstVehic[k], dfct);
+        if(obstVehic[k].initPosY > trackHeight)
         {
-            removeObstVehicObj(_obstVehic, k);
+            removeObstVehicObj(obstVehic, k);
             k = -1;
             continue;
         }
-        if(_obstVehic[k].initPosY + _obstVehic[k].objHeight < 0)
+        if(obstVehic[k].initPosY + obstVehic[k].objHeight < 0)
         {
             continue;
         }
-        for(int i = 0; i < _obstVehic[k].objHeight; ++i)
+        for(int i = 0; i < obstVehic[k].objHeight; ++i)
         {
-            if((_obstVehic[k].initPosY + i) >= 0 && (_obstVehic[k].initPosY + i) < trackHeight)
+            if((obstVehic[k].initPosY + i) >= 0 && (obstVehic[k].initPosY + i) < trackHeight)
             {
-                for(int j = 0; j < _obstVehic[k].objWidth; ++j)
+                for(int j = 0; j < obstVehic[k].objWidth; ++j)
                 {
-                    track[_obstVehic[k].initPosY + i][_obstVehic[k].initPosX + j] = _obstVehic[k].objectView[i][j];
+                    track[obstVehic[k].initPosY + i][obstVehic[k].initPosX + j] = obstVehic[k].objectView[i][j];
                 }
             }
         }
     }
 }
 
-int offsetDirection(ObstVehic _obstVehicCur, ObstVehic _obstVehicPrev, int& min, bool& isTrackBorderReached)
+int offsetDirection(ObstVehic obstVehicCur, ObstVehic obstVehicPrev, int& min, bool& isTrackBorderReached)
 {
     int tempMin_1 = 0;
     int tempMin_2 = 0;
-    if(_obstVehicCur.freeSpaceR > _obstVehicPrev.freeSpaceL
-    && _obstVehicCur.freeSpaceB > _obstVehicPrev.freeSpaceT)
+    if(obstVehicCur.freeSpaceR > obstVehicPrev.freeSpaceL
+    && obstVehicCur.freeSpaceB > obstVehicPrev.freeSpaceT)
     {
-        if((tempMin_1 = _obstVehicCur.freeSpaceR - _obstVehicPrev.freeSpaceL)
-         < (tempMin_2 = _obstVehicCur.freeSpaceB - _obstVehicPrev.freeSpaceT)
+        if((tempMin_1 = obstVehicCur.freeSpaceR - obstVehicPrev.freeSpaceL)
+         < (tempMin_2 = obstVehicCur.freeSpaceB - obstVehicPrev.freeSpaceT)
          && !isTrackBorderReached)
         {
             min = tempMin_1;
@@ -222,11 +221,11 @@ int offsetDirection(ObstVehic _obstVehicCur, ObstVehic _obstVehicPrev, int& min,
             return 2;
         }
     }
-    if(_obstVehicCur.freeSpaceB > _obstVehicPrev.freeSpaceT
-    && _obstVehicCur.freeSpaceL < _obstVehicPrev.freeSpaceR)
+    if(obstVehicCur.freeSpaceB > obstVehicPrev.freeSpaceT
+    && obstVehicCur.freeSpaceL < obstVehicPrev.freeSpaceR)
     {
-        if((tempMin_1 = _obstVehicCur.freeSpaceB - _obstVehicPrev.freeSpaceT)
-         > (tempMin_2 = _obstVehicPrev.freeSpaceR - _obstVehicCur.freeSpaceL)
+        if((tempMin_1 = obstVehicCur.freeSpaceB - obstVehicPrev.freeSpaceT)
+         > (tempMin_2 = obstVehicPrev.freeSpaceR - obstVehicCur.freeSpaceL)
          && !isTrackBorderReached)
         {
             min = tempMin_2;
@@ -238,11 +237,11 @@ int offsetDirection(ObstVehic _obstVehicCur, ObstVehic _obstVehicPrev, int& min,
             return 2;
         }
     }
-    if(_obstVehicCur.freeSpaceL < _obstVehicPrev.freeSpaceR
-    && _obstVehicCur.freeSpaceT < _obstVehicPrev.freeSpaceB)
+    if(obstVehicCur.freeSpaceL < obstVehicPrev.freeSpaceR
+    && obstVehicCur.freeSpaceT < obstVehicPrev.freeSpaceB)
     {
-        if((tempMin_1 = _obstVehicPrev.freeSpaceR - _obstVehicCur.freeSpaceL)
-         < (tempMin_2 = _obstVehicPrev.freeSpaceB - _obstVehicCur.freeSpaceT)
+        if((tempMin_1 = obstVehicPrev.freeSpaceR - obstVehicCur.freeSpaceL)
+         < (tempMin_2 = obstVehicPrev.freeSpaceB - obstVehicCur.freeSpaceT)
          && !isTrackBorderReached)
         {
             min = tempMin_1;
@@ -252,28 +251,28 @@ int offsetDirection(ObstVehic _obstVehicCur, ObstVehic _obstVehicPrev, int& min,
     return 0;
 }
 
-void hitCounter(std::vector<ObstVehic>& _obstVehic, std::vector<Bullet>& _bullets, Car* _player)
+void hitCounter(std::vector<ObstVehic>& obstVehic, std::vector<Bullet>& bullets, Car* player)
 {
-    if(!_obstVehic.size() || !_bullets.size())
+    if(!obstVehic.size() || !bullets.size())
     {
         return;
     }
-    for(unsigned int i = 0; i < _obstVehic.size(); ++i)
+    for(unsigned int i = 0; i < obstVehic.size(); ++i)
     {
-        for(int j = _obstVehic[i].objHeight - 1; j >= 0; --j)
+        for(int j = obstVehic[i].objHeight - 1; j >= 0; --j)
         {
-            for(int k = 0; k < _obstVehic[i].objWidth; ++k)
+            for(int k = 0; k < obstVehic[i].objWidth; ++k)
             {
-                for(unsigned int m = 0; m < _bullets.size(); ++m)
+                for(unsigned int m = 0; m < bullets.size(); ++m)
                 {
-                    if(((_obstVehic[i].initPosY + j) == _bullets[m].y) && ((_obstVehic[i].initPosX + k) == _bullets[m].x))
+                    if(((obstVehic[i].initPosY + j) == bullets[m].y) && ((obstVehic[i].initPosX + k) == bullets[m].x))
                     {
-                        ++_obstVehic[i].cntHit;
-                        removeBullet(_bullets, m);
-                        if(_obstVehic[i].cntHit == _obstVehic[i].numberOfHit)
+                        ++obstVehic[i].cntHit;
+                        removeBullet(bullets, m);
+                        if(obstVehic[i].cntHit == obstVehic[i].numberOfHit)
                         {
-                            _player->score += 100;
-                            removeObstVehicObj(_obstVehic, i);
+                            player->score += 100;
+                            removeObstVehicObj(obstVehic, i);
                         }
                     }
                 }
@@ -282,30 +281,30 @@ void hitCounter(std::vector<ObstVehic>& _obstVehic, std::vector<Bullet>& _bullet
     }
 }
 
-bool isCarCrashed(std::vector<ObstVehic>& _obstVehic, Car* _player)
+bool isCarCrashed(std::vector<ObstVehic>& obstVehic, Car* player)
 {
-    if(!_obstVehic.size() || _player == nullptr)
+    if(!obstVehic.size() || player == nullptr)
     {
         return false;
     }
-    for(unsigned int i = 0; i < _obstVehic.size(); ++i)
+    for(unsigned int i = 0; i < obstVehic.size(); ++i)
     {
-        for(int j = _obstVehic[i].objHeight - 1; j >= 0; --j)
+        for(int j = obstVehic[i].objHeight - 1; j >= 0; --j)
         {
-            int jY = _obstVehic[i].initPosY + j;
-            for(int k = 0; k < _obstVehic[i].objWidth; ++k)
+            int jY = obstVehic[i].initPosY + j;
+            for(int k = 0; k < obstVehic[i].objWidth; ++k)
             {
-                int kX = _obstVehic[i].initPosX + k;
+                int kX = obstVehic[i].initPosX + k;
                 for(int m = 0; m < carHeight; ++m)
                 {
-                    int mY = _player->initPosY + m;
+                    int mY = player->initPosY + m;
                     for(int n = 0; n < carWidth; ++n)
                     {
-                        int nX = _player->initPosX + n;
+                        int nX = player->initPosX + n;
                         if((jY == mY) && (kX == nX))
                         {
-                            if((_obstVehic[i].objectView[j][k] == ('*' | COLOR_PAIR(4)))
-                                    && (_player->carView[m][n] == ('*' | COLOR_PAIR(4))))
+                            if((obstVehic[i].objectView[j][k] == ('*' | COLOR_PAIR(4)))
+                                    && (player->carView[m][n] == ('*' | COLOR_PAIR(4))))
                             {
                                 return true;
                             }

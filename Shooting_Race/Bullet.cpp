@@ -16,7 +16,7 @@ bool isShootButtonDown()
 void createBullet(std::vector<Bullet>& bullets, const Car* playerCar)
 {
     static int bulletStep = 0;
-    if(bulletStep == 1)
+    if(bulletStep == 0)
     {
         bullets.emplace_back(Bullet{playerCar->initPosX + 1,
                                     playerCar->initPosY,
