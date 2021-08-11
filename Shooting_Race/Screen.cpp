@@ -19,12 +19,12 @@ bool isRaceLaunched()
     }while(GetKeyState(VK_RETURN) >= 0 || GetKeyState(VK_ESCAPE) >= 0);
 }
 
-void displayScore(int y, int x, const Car* player)
+void displayScore(int y, int x, const Car* player, const char* pathScoreName)
 {
     static int tempBestScore = 0;
     if(tempBestScore == 0)
     {
-        tempBestScore = getBestScore();
+        tempBestScore = getBestScore(pathScoreName);
     }
     Score currentScore = {"Score:", player->score};
     Score bestScore = {"Best score:", tempBestScore};
@@ -32,9 +32,9 @@ void displayScore(int y, int x, const Car* player)
     mvprintw(y + 2, x, "%s: %d", currentScore.nick, currentScore.score);
 }
 
-int getBestScore()
+int getBestScore(const char* pathScoreName)
 {
-    const char* titlePathToScore = "D:\\Ivan\\Level_UP\\build-Shooting_Race-Desktop_Qt_6_1_0_MinGW_64_bit-Debug\\debug\\score.txt";
+    const char* titlePathToScore = pathScoreName;
     FILE* fPtrScore = fopen(titlePathToScore, "r");
     int tempScore = 0;
     if(fPtrScore != nullptr)
@@ -62,10 +62,10 @@ void displayControl()
     }
 }
 
-void displayTitle()
+void displayTitle(const char* pathTitleName)
 {
     //Open the file and make a check of opening
-    const char* titlePath = "D:\\Ivan\\Level_UP\\build-Shooting_Race-Desktop_Qt_6_1_0_MinGW_64_bit-Debug\\debug\\title.txt";
+    const char* titlePath = pathTitleName;
     FILE* fPtrTitle = fopen(titlePath, "r");
     if (fPtrTitle == nullptr)
     {

@@ -14,15 +14,23 @@
 
 int main(int argc, char* argv[])
 {
-    char pathName[500];
+    char pathObstacleName[200];
+    char pathScoreName[200];
+    char pathTitleName[200];
     if(argc == 2)
     {
-        strcpy(pathName, argv[1]);
-        strcpy(pathName + strlen(argv[1]), "\\vehicle.txt");
+        strcpy(pathObstacleName, argv[1]);
+        strcpy(pathObstacleName + strlen(argv[1]), "\\vehicle.txt");
+        strcpy(pathScoreName, argv[1]);
+        strcpy(pathScoreName + strlen(argv[1]), "\\score.txt");
+        strcpy(pathTitleName, argv[1]);
+        strcpy(pathTitleName + strlen(argv[1]), "\\title.txt");
     }
     else
     {
-        strcpy(pathName, "vehicle.txt");
+        strcpy(pathObstacleName, "vehicle.txt");
+        strcpy(pathScoreName, "score.txt");
+        strcpy(pathTitleName, "title.txt");
     }
 
     //Set the console size
@@ -56,9 +64,9 @@ int main(int argc, char* argv[])
     showTrack(ptrTrack);
 
     //Show start menu
-    displayTitle();
+    displayTitle(pathTitleName);
     displayControl();
-    displayScore(10, divisor / 2 + trackWidth + 13, &player);
+    displayScore(10, divisor / 2 + trackWidth + 13, &player, pathScoreName);
     refresh();
     bool isRaceRun = isRaceLaunched();
     clear();
@@ -79,7 +87,7 @@ int main(int argc, char* argv[])
             moveObstVehic(obstVehic, ptrTrack, spd, dfct);
             if(counter == callNxtObj)
             {
-                createObstacleOrVehicle(pathName, obstVehic, dfct);
+                createObstacleOrVehicle(pathObstacleName, obstVehic, dfct);
                 callNxtObj += rand() % 50 + 20;
             }
             if(!bullets.empty())
@@ -96,7 +104,7 @@ int main(int argc, char* argv[])
             showTrack(ptrTrack);
             displayControl();
             ++player.score;
-            displayScore(10, divisor / 2 + trackWidth + 6, &player);
+            displayScore(10, divisor / 2 + trackWidth + 6, &player, pathScoreName);
             refresh();
             gVelocity += spd;
             ++counter;
@@ -106,7 +114,7 @@ int main(int argc, char* argv[])
 
     if(isGameOver)
     {
-        gameOver(ptrTrack, &player);
+        gameOver(ptrTrack, &player, pathScoreName);
     }
 
     endwin();

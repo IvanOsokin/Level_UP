@@ -2,9 +2,9 @@
 #include <math.h>
 #include "Obstacles_Vehicles.h"
 
-void createObstacleOrVehicle(const char* pathName, std::vector<ObstVehic>& obstVehic, const Difficulty dfct)
+void createObstacleOrVehicle(const char* pathObstacleName, std::vector<ObstVehic>& obstVehic, const Difficulty dfct)
 {
-    obstVehic.emplace_back(createObstVehic(pathName, dfct));
+    obstVehic.emplace_back(createObstVehic(pathObstacleName, dfct));
     /*
     //Set a unit to a suitable place onto the track
     int currentIndex = obstVehic.size() - 1;
@@ -54,7 +54,7 @@ void createObstacleOrVehicle(const char* pathName, std::vector<ObstVehic>& obstV
     }*/
 }
 
-ObstVehic createObstVehic(const char* pathName, const Difficulty dfct)
+ObstVehic createObstVehic(const char* pathObstacleName, const Difficulty dfct)
 {
     ObstVehic _tmpVehic;
     _tmpVehic.cntHit = 0;
@@ -72,7 +72,7 @@ ObstVehic createObstVehic(const char* pathName, const Difficulty dfct)
     }
 
     //Open the file and determine objWidth and objHeight
-    const char* titlePathToVehicle = pathName;
+    const char* titlePathToVehicle = pathObstacleName;
     FILE* ptrVehicle = fopen(titlePathToVehicle, "r");
     if(ptrVehicle == nullptr)
     {

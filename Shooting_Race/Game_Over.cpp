@@ -6,7 +6,7 @@
 #include "Game_Param.h"
 #include "Surroundings.h"
 
-void gameOver(chtype** ptrTrack, const Car* player)
+void gameOver(chtype** ptrTrack, const Car* player, const char* pathScoreName)
 {
     Sleep(2000);
     clear();
@@ -18,14 +18,14 @@ void gameOver(chtype** ptrTrack, const Car* player)
     refresh();
     getchar();
     getch();
-    displayTableRank(player);
+    displayTableRank(player, pathScoreName);
 }
 
-void displayTableRank(const Car* player)
+void displayTableRank(const Car* player, const char* pathScoreName)
 {
     FILE* fPtrScore;
     int tableSize = 0;
-    Score* scores = getTable(&fPtrScore, &tableSize);
+    Score* scores = getTable(&fPtrScore, &tableSize, pathScoreName);
     if(tableSize == 0)
     {
         ++tableSize;
@@ -50,9 +50,9 @@ void displayTableRank(const Car* player)
     closeTheGame(fPtrScore, scores, &tableSize);
 }
 
-Score* getTable(FILE** fPtrScore, int* tableSize)
+Score* getTable(FILE** fPtrScore, int* tableSize, const char* pathScoreName)
 {
-    const char* titlePathToScore = "D:\\Ivan\\Level_UP\\build-Shooting_Race-Desktop_Qt_6_1_0_MinGW_64_bit-Debug\\debug\\score.txt";
+    const char* titlePathToScore = pathScoreName;
     *fPtrScore = fopen(titlePathToScore, "r+");
     Score* _scores = nullptr;
     if(*fPtrScore != nullptr)

@@ -7,9 +7,9 @@
 
 bool isRaceLaunched();
 
-void displayScore(int y, int x, const Car* player);
-int  getBestScore();
+void displayScore(int y, int x, const Car* player, const char* pathScoreName);
+int  getBestScore(const char* pathScoreName);
 void displayControl();
-void displayTitle();
+void displayTitle(const char* pathTitleName);
 
 #endif // SCREEN_H

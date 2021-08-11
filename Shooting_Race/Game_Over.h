@@ -10,9 +10,9 @@ struct Score
     int  score;
 };
 
-void        gameOver(chtype** ptrTrack, const Car* player);
-void        displayTableRank(const Car* player);
-Score*      getTable(FILE** fPtrScore, int* tableSize);
+void        gameOver(chtype** ptrTrack, const Car* player, const char* pathScoreName);
+void        displayTableRank(const Car* player, const char* pathScoreName);
+Score*      getTable(FILE** fPtrScore, int* tableSize, const char* pathScoreName);
 void        closeTheGame(FILE* fPtrScore, Score* scores, int* tableSize);
 char*       getUserName();
 int         findPositionInTheTable(Score* scores, int* tableSize, const Car* player);
